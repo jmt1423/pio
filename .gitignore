@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Frontend specific
+packages/frontend/dist/
+packages/frontend/.vite/
+
+# Backend specific
+packages/backend/__pycache__/
+packages/backend/.pytest_cache/
+packages/backend/.venv/
+packages/backend/venv/
+packages/backend/*.pyc
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
