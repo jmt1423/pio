@@ -33,3 +33,12 @@ class GithubService:
         except Exception as e:
             print(f"Error fetching repo: {e}")
             return None
+
+    def get_pull_request(self, repo_name: str, pull_number: int):
+        try:
+            repo = self.get_repo(repo_name)
+            if repo:
+                return repo.get_pull(pull_number)
+        except Exception as e:
+            print(f"Error fetching pull request: {e}")
+            return None

@@ -35,7 +35,7 @@ function App() {
                 <li key={repo.id}>
                   <Button variant={'link'}>
                     <Link
-                      to={`/repo/$repoId`}
+                      to={`/$repoId`}
                       params={{ repoId: `${repo.full_name}` }}
                     >
                       {repo.full_name}

@@ -10,43 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RepoRepoIdRouteImport } from './routes/repo/$repoId'
+import { Route as RepoIdIndexRouteImport } from './routes/$repoId/index'
+import { Route as RepoIdPullNumberRouteImport } from './routes/$repoId/$pullNumber'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RepoRepoIdRoute = RepoRepoIdRouteImport.update({
-  id: '/repo/$repoId',
-  path: '/repo/$repoId',
+const RepoIdIndexRoute = RepoIdIndexRouteImport.update({
+  id: '/$repoId/',
+  path: '/$repoId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RepoIdPullNumberRoute = RepoIdPullNumberRouteImport.update({
+  id: '/$repoId/$pullNumber',
+  path: '/$repoId/$pullNumber',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/repo/$repoId': typeof RepoRepoIdRoute
+  '/$repoId/$pullNumber': typeof RepoIdPullNumberRoute
+  '/$repoId': typeof RepoIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/repo/$repoId': typeof RepoRepoIdRoute
+  '/$repoId/$pullNumber': typeof RepoIdPullNumberRoute
+  '/$repoId': typeof RepoIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/repo/$repoId': typeof RepoRepoIdRoute
+  '/$repoId/$pullNumber': typeof RepoIdPullNumberRoute
+  '/$repoId/': typeof RepoIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/repo/$repoId'
+  fullPaths: '/' | '/$repoId/$pullNumber' | '/$repoId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/repo/$repoId'
-  id: '__root__' | '/' | '/repo/$repoId'
+  to: '/' | '/$repoId/$pullNumber' | '/$repoId'
+  id: '__root__' | '/' | '/$repoId/$pullNumber' | '/$repoId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RepoRepoIdRoute: typeof RepoRepoIdRoute
+  RepoIdPullNumberRoute: typeof RepoIdPullNumberRoute
+  RepoIdIndexRoute: typeof RepoIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +68,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/repo/$repoId': {
-      id: '/repo/$repoId'
-      path: '/repo/$repoId'
-      fullPath: '/repo/$repoId'
-      preLoaderRoute: typeof RepoRepoIdRouteImport
+    '/$repoId/': {
+      id: '/$repoId/'
+      path: '/$repoId'
+      fullPath: '/$repoId'
+      preLoaderRoute: typeof RepoIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$repoId/$pullNumber': {
+      id: '/$repoId/$pullNumber'
+      path: '/$repoId/$pullNumber'
+      fullPath: '/$repoId/$pullNumber'
+      preLoaderRoute: typeof RepoIdPullNumberRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RepoRepoIdRoute: RepoRepoIdRoute,
+  RepoIdPullNumberRoute: RepoIdPullNumberRoute,
+  RepoIdIndexRoute: RepoIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
