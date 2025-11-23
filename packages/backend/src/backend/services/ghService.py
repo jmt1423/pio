@@ -26,3 +26,10 @@ class GithubService:
         except Exception as e:
             print(f"Error fetching user repos: {e}")
             return []
+
+    def get_repo(self, repo_name: str):
+        try:
+            return self.client.get_repo(repo_name)
+        except Exception as e:
+            print(f"Error fetching repo: {e}")
+            return None

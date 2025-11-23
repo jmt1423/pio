@@ -1,5 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
+import { Button } from '@/components/ui/button'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -22,12 +24,24 @@ function App() {
 
   return (
     <div className="text-center">
-      <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
+      <header className="min-h-screen flex flex-col items-center justify-center">
+        <div className="fixed top-2 right-2">
+          <ModeToggle />
+        </div>
         <div>
           {data && data.length > 0 ? (
             <ul>
               {data.map((repo: any) => (
-                <li key={repo.id}>{repo.name}</li>
+                <li key={repo.id}>
+                  <Button variant={'link'}>
+                    <Link
+                      to={`/repo/$repoId`}
+                      params={{ repoId: `${repo.full_name}` }}
+                    >
+                      {repo.full_name}
+                    </Link>
+                  </Button>
+                </li>
               ))}
             </ul>
           ) : (

@@ -16,5 +16,9 @@
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-slot": "^1.2.4"
   }
 }
