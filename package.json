@@ -2,12 +2,19 @@
   "name": "pio",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "cd packages/backend && poetry run uvicorn src.backend.main:app --reload",
+    "dev": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "OuranosCo",
   "license": "ISC",
-  "packageManager": "pnpm@10.18.3"
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
